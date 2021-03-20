@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Natal Chart Demo</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <!-- Setting up requested fill colors for zodiac signs and other stuff -->
+    <style>
+      #chart-astrology-radix-signs-5,#chart-astrology-radix-signs-9,#chart-astrology-radix-signs-1{
+        
+        fill:#27AE60;
+      }
+      #chart-astrology-radix-signs-7,#chart-astrology-radix-signs-11,#chart-astrology-radix-signs-3{
+       
+        fill:#87CEEB;
+      }
+      #chart-astrology-radix-signs-6,#chart-astrology-radix-signs-10,#chart-astrology-radix-signs-2{
+        
+        fill:#FFFF66;
+      }
+      #chart-astrology-radix-planets-Jupiter +text,#chart-astrology-radix-planets-Sun+text,
+      #chart-astrology-radix-planets-Mars+text,#chart-astrology-radix-planets-Jupiter path,#chart-astrology-radix-planets-Sun path,
+      #chart-astrology-radix-planets-Mars path{
+        stroke: red;
+      }
+      #chart-astrology-radix-planets-Saturn+text,
+      #chart-astrology-radix-planets-Venus+text,#chart-astrology-radix-planets-Saturn path,
+      #chart-astrology-radix-planets-Venus path{
+        stroke: green;
+      }
+      #chart-astrology-radix-planets-Mercury+text,
+      #chart-astrology-radix-planets-Uranus+text,#chart-astrology-radix-planets-Mercury path,
+      #chart-astrology-radix-planets-Uranus path{
+        stroke: #CCCC00;
+      }
+      #chart-astrology-radix-planets-Neptune+text,#chart-astrology-radix-planets-Moon+text,
+      #chart-astrology-radix-planets-Pluto+text,#chart-astrology-radix-planets-Neptune path,#chart-astrology-radix-planets-Moon path,
+      #chart-astrology-radix-planets-Pluto path{
+        stroke: blue;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <h1 class="text-left">Natal Chart Demo</h1>
+          
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-5">
+          <form id="form">
+            <div class="form-row">
+              
+              <!-- Longitude and Latitude -->
+              <div class="form-group col-md-6 invisible">
+                <label>Latitude (decimal)</label>
+                <input class="form-control" id="latitude" name="latitude" type="number" step="any" min="-90" max="90" value="42.37"></input>
+              </div>
+              <div class="form-group col-md-6 invisible">
+                <label>Longitude (decimal)</label>
+                <input class="form-control" id="longitude" name="longitude" type="number" step="any" min="-180" max="180" value="-71.11"></input>
+              </div>
+
+              <!-- Location and city -->
+              <div class="form-group col-md-6 ">
+                <label>Country</label>
+                <input class="form-control" id="country" name="country" type="text" step="any"></input>
+              </div>
+              <div class="form-group col-md-6">
+                <label>City</label>
+                <input class="form-control" id="city" name="city" type="text" step="any"></input>
+              </div>
+
+            </div>
+            <div class="form-group">
+              <label>Date of birth</label>
+              <input class="form-control" id="date" name="date" type="date" value="1981-07-13"></input>
+            </div>
+            <div class="form-group">
+              <label>Local Time of birth</label>
+              <input class="form-control" id="time" name="time" type="time" value="11:22:00"></input>
+            </div>
+            <div class="form-group">
+              <label>Language</label>
+              <select id="language-select"></select>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group">
+                  <label>Zodiac System:</label>
+                  <select id="zodiacSystem"></select>
+                </div>
+                <div class="form-group">
+                  <label>House System:</label>
+                  <select id="houseSystem"></select>
+                </div>
+                <!-- invisible -->
+                <div class="form-group ">
+                  <label>Aspect Levels:</label>
+                  <div>
+                    <label for ="aspect-level-major">
+                      Major
+                      <input id="aspect-level-major" type="checkbox" checked>
+                    </label>
+                    <label for="aspect-level-minor">
+                      Minor
+                      <input id="aspect-level-minor" type="checkbox">
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <!-- invisible -->
+                <div class="form-group ">
+                  <label>Aspect Orbs:</label>
+                  <div class="row">
+                    <div class="col-6">
+                      <label>Major Aspects</label>
+                      <div id="major-aspect-inputs">
+
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <label>Minor Aspects</label>
+                      <div id="minor-aspect-inputs">
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+        <div class="col-md-5" id="chart"></div>
+      </div>
+      
+
+      </div>
+      <hr />
+      <div class="container-fluidrow">
+        <div class="col-12">
+          <div class="form-group">
+            <label>Sun sign:</label>
+            <p id="sunsign">
+
+            </p>
+          </div>
+          <div class="form-group">
+            <label>Angles: </label>
+            <table id="angles" class="table table-dark">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>ascendant</th>
+                  <th>m.c.</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    Horizon Degrees
+                  </td>
+                  <td id="ascendant-a"></td>
+                  <td id="midheaven-a"></td>
+                </tr>
+                <tr>
+                  <td>
+                    Ecliptic Degrees
+                  </td>
+                  <td id="ascendant-b"></td>
+                  <td id="midheaven-b"></td>
+                </tr>
+                <tr>
+                  <td>
+                    Sign - D/M/S
+                  </td>
+                  <td id="ascendant-c"></td>
+                  <td id="midheaven-c"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <hr/>
+
+          <div class="form-group">
+            <label>Zodiac Cusps:</label>
+            <table id="zodiacCusps" class="table table-dark">
+              <thead>
+                <tr>
+                  <th>
+
+                  </th>
+                  <th>
+                    Aries
+                  </th>
+                  <th>
+                    Taurus
+                  </th>
+                  <th>
+                    Gemini
+                  </th>
+                  <th>
+                    Cancer
+                  </th>
+                  <th>
+                    Leo
+                  </th>
+                  <th>
+                    Virgo
+                  </th>
+                  <th>
+                    Libra
+                  </th>
+                  <th>
+                    Scorpio
+                  </th>
+                  <th>
+                    Sagittarius
+                  </th>
+                  <th>
+                    Capricorn
+                  </th>
+                  <th>
+                    Aquarius
+                  </th>
+                  <th>
+                    Pisces
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    Horizon Degrees
+                  </td>
+                  <td id="zodiac-1">
+
+                  </td>
+                  <td id="zodiac-2">
+
+                  </td>
+                  <td id="zodiac-3">
+
+                  </td>
+                  <td id="zodiac-4">
+
+                  </td>
+                  <td id="zodiac-5">
+
+                  </td>
+                  <td id="zodiac-6">
+
+                  </td>
+                  <td id="zodiac-7">
+
+                  </td>
+                  <td id="zodiac-8">
+
+                  </td>
+                  <td id="zodiac-9">
+
+                  </td>
+                  <td id="zodiac-10">
+
+                  </td>
+                  <td id="zodiac-11">
+
+                  </td>
+                  <td id="zodiac-12">
+
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Ecliptic Degrees
+                  </td>
+                  <td id="zodiac-1b">
+
+                  </td>
+                  <td id="zodiac-2b">
+
+                  </td>
+                  <td id="zodiac-3b">
+
+                  </td>
+                  <td id="zodiac-4b">
+
+                  </td>
+                  <td id="zodiac-5b">
+
+                  </td>
+                  <td id="zodiac-6b">
+
+                  </td>
+                  <td id="zodiac-7b">
+
+                  </td>
+                  <td id="zodiac-8b">
+
+                  </td>
+                  <td id="zodiac-9b">
+
+                  </td>
+                  <td id="zodiac-10b">
+
+                  </td>
+                  <td id="zodiac-11b">
+
+                  </td>
+                  <td id="zodiac-12b">
+
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <hr />
+          <div class="form-group">
+            <label>Houses:</label>
+            <table id="houses" class="table table-dark">
+              <thead>
+                <tr>
+                  <th>
+
+                  </th>
+                  <th>
+                    House 1
+                  </th>
+                  <th>
+                    House 2
+                  </th>
+                  <th>
+                    House 3
+                  </th>
+                  <th>
+                    House 4
+                  </th>
+                  <th>
+                    House 5
+                  </th>
+                  <th>
+                    House 6
+                  </th>
+                  <th>
+                    House 7
+                  </th>
+                  <th>
+                    House 8
+                  </th>
+                  <th>
+                    House 9
+                  </th>
+                  <th>
+                    House 10
+                  </th>
+                  <th>
+                    House 11
+                  </th>
+                  <th>
+                    House 12
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    Horizon Degrees
+                  </td>
+                  <td id="house-1a">
+
+                  </td>
+                  <td id="house-2a">
+
+                  </td>
+                  <td id="house-3a">
+
+                  </td>
+                  <td id="house-4a">
+
+                  </td>
+                  <td id="house-5a">
+
+                  </td>
+                  <td id="house-6a">
+
+                  </td>
+                  <td id="house-7a">
+
+                  </td>
+                  <td id="house-8a">
+
+                  </td>
+                  <td id="house-9a">
+
+                  </td>
+                  <td id="house-10a">
+
+                  </td>
+                  <td id="house-11a">
+
+                  </td>
+                  <td id="house-12a">
+
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Ecliptic Degrees
+                  </td>
+                  <td id="house-1b">
+
+                  </td>
+                  <td id="house-2b">
+
+                  </td>
+                  <td id="house-3b">
+
+                  </td>
+                  <td id="house-4b">
+
+                  </td>
+                  <td id="house-5b">
+
+                  </td>
+                  <td id="house-6b">
+
+                  </td>
+                  <td id="house-7b">
+
+                  </td>
+                  <td id="house-8b">
+
+                  </td>
+                  <td id="house-9b">
+
+                  </td>
+                  <td id="house-10b">
+
+                  </td>
+                  <td id="house-11b">
+
+                  </td>
+                  <td id="house-12b">
+
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Sign
+                  </td>
+                  <td id="house-1-sign">
+
+                  </td>
+                  <td id="house-2-sign">
+
+                  </td>
+                  <td id="house-3-sign">
+
+                  </td>
+                  <td id="house-4-sign">
+
+                  </td>
+                  <td id="house-5-sign">
+
+                  </td>
+                  <td id="house-6-sign">
+
+                  </td>
+                  <td id="house-7-sign">
+
+                  </td>
+                  <td id="house-8-sign">
+
+                  </td>
+                  <td id="house-9-sign">
+
+                  </td>
+                  <td id="house-10-sign">
+
+                  </td>
+                  <td id="house-11-sign">
+
+                  </td>
+                  <td id="house-12-sign">
+
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <hr />
+            <div class="form-group">
+              <label>Celestial Bodies:</label>
+              <table id="bodies" class="table table-dark">
+                <thead>
+                  <tr>
+                    <th>
+
+                    </th>
+                    <th>
+                      sun
+                    </th>
+                    <th>
+                      moon
+                    </th>
+                    <th>
+                      mercury
+                    </th>
+                    <th>
+                      venus
+                    </th>
+                    <th>
+                      mars
+                    </th>
+                    <th>
+                      jupiter
+                    </th>
+                    <th>
+                      saturn
+                    </th>
+                    <th>
+                      uranus
+                    </th>
+                    <th>
+                      neptune
+                    </th>
+                    <th>
+                      pluto
+                    </th>
+                    <th>
+                      chiron
+                    </th>
+                    <th>
+                      sirius
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      Horizon Degrees
+                    </td>
+                    <td id="sun-a">
+
+                    </td>
+                    <td id="moon-a">
+
+                    </td>
+                    <td id="mercury-a">
+
+                    </td>
+                    <td id="venus-a">
+
+                    </td>
+                    <td id="mars-a">
+
+                    </td>
+                    <td id="jupiter-a">
+
+                    </td>
+                    <td id="saturn-a">
+
+                    </td>
+                    <td id="uranus-a">
+
+                    </td>
+                    <td id="neptune-a">
+
+                    </td>
+                    <td id="pluto-a">
+
+                    </td>
+                    <td id="chiron-a">
+
+                    </td>
+                    <td id="sirius-a">
+
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Ecliptic Degrees
+                    </td>
+                    <td id="sun-b">
+
+                    </td>
+                    <td id="moon-b">
+
+                    </td>
+                    <td id="mercury-b">
+
+                    </td>
+                    <td id="venus-b">
+
+                    </td>
+                    <td id="mars-b">
+
+                    </td>
+                    <td id="jupiter-b">
+
+                    </td>
+                    <td id="saturn-b">
+
+                    </td>
+                    <td id="uranus-b">
+
+                    </td>
+                    <td id="neptune-b">
+
+                    </td>
+                    <td id="pluto-b">
+
+                    </td>
+                    <td id="chiron-b">
+
+                    </td>
+                    <td id="sirius-b">
+
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Sign - D/M/S
+                    </td>
+                    <td id="sun-dms">
+
+                    </td>
+                    <td id="moon-dms">
+
+                    </td>
+                    <td id="mercury-dms">
+
+                    </td>
+                    <td id="venus-dms">
+
+                    </td>
+                    <td id="mars-dms">
+
+                    </td>
+                    <td id="jupiter-dms">
+
+                    </td>
+                    <td id="saturn-dms">
+
+                    </td>
+                    <td id="uranus-dms">
+
+                    </td>
+                    <td id="neptune-dms">
+
+                    </td>
+                    <td id="pluto-dms">
+
+                    </td>
+                    <td id="chiron-dms">
+
+                    </td>
+                    <td id="sirius-dms">
+
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Retrograde
+                    </td>
+                    <td>
+
+                    </td>
+                    <td>
+
+                    </td>
+                    <td id="mercury-retro">
+
+                    </td>
+                    <td id="venus-retro">
+
+                    </td>
+                    <td id="mars-retro">
+
+                    </td>
+                    <td id="jupiter-retro">
+
+                    </td>
+                    <td id="saturn-retro">
+
+                    </td>
+                    <td id="uranus-retro">
+
+                    </td>
+                    <td id="neptune-retro">
+
+                    </td>
+                    <td id="pluto-retro">
+
+                    </td>
+                    <td id="chiron-retro">
+
+                    </td>
+                    <td>
+
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      House
+                    </td>
+                    <td id="sun-house">
+
+                    </td>
+                    <td id="moon-house">
+
+                    </td>
+                    <td id="mercury-house">
+
+                    </td>
+                    <td id="venus-house">
+
+                    </td>
+                    <td id="mars-house">
+
+                    </td>
+                    <td id="jupiter-house">
+
+                    </td>
+                    <td id="saturn-house">
+
+                    </td>
+                    <td id="uranus-house">
+
+                    </td>
+                    <td id="neptune-house">
+
+                    </td>
+                    <td id="pluto-house">
+
+                    </td>
+                    <td id="chiron-house">
+
+                    </td>
+                    <td id="sirius-house">
+
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="form-group">
+              <label>Celestial Points:</label>
+              <table id="points" class="table table-dark">
+                <thead>
+                  <tr>
+                    <th>
+
+                    </th>
+                    <th>
+                      n. node
+                    </th>
+                    <th>
+                      s. node
+                    </th>
+                    <th>
+                      lilith
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      Horizon Degrees
+                    </td>
+                    <td id="northnode-a">
+
+                    </td>
+                    <td id="southnode-a">
+
+                    </td>
+                    <td id="lilith-a">
+
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Ecliptic Degrees
+                    </td>
+                    <td id="northnode-b">
+
+                    </td>
+                    <td id="southnode-b">
+
+                    </td>
+                    <td id="lilith-b">
+
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Sign - D/M/S
+                    </td>
+                    <td id="northnode-dms">
+
+                    </td>
+                    <td id="southnode-dms">
+
+                    </td>
+                    <td id="lilith-dms">
+
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      House
+                    </td>
+                    <td id="northnode-house">
+
+                    </td>
+                    <td id="southnode-house">
+
+                    </td>
+                    <td id="lilith-house">
+
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+          </div>
+          <hr />
+          <div class="form-group">
+            <label>Aspects:</label>
+            <table id="aspects" class="table table-dark">
+              <thead>
+                <tr>
+                  <td>
+                    Point 1
+                  </td>
+                  <td>
+                    Aspect
+                  </td>
+                  <td>
+                    Point 2
+                  </td>
+                  <td>
+                    Orb
+                  </td>
+                  <td>
+                    Orb Used
+                  </td>
+                  <td>
+                    Aspect Level
+                  </td>
+                </tr>
+              </thead>
+              <tbody>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  <script type="text/javascript" src="app.js"></script></body>
+</html>
