@@ -1,0 +1,32 @@
+#chart-astrology-radix-signs-5,#chart-astrology-radix-signs-9,#chart-astrology-radix-signs-1{
+        
+    fill:#27AE60;
+  }
+  #chart-astrology-radix-signs-7,#chart-astrology-radix-signs-11,#chart-astrology-radix-signs-3{
+   
+    fill:#87CEEB;
+  }
+  #chart-astrology-radix-signs-6,#chart-astrology-radix-signs-10,#chart-astrology-radix-signs-2{
+    
+    fill:#FFFF66;
+  }
+  #chart-astrology-radix-planets-Jupiter +text,#chart-astrology-radix-planets-Sun+text,
+  #chart-astrology-radix-planets-Mars+text,#chart-astrology-radix-planets-Jupiter path,#chart-astrology-radix-planets-Sun path,
+  #chart-astrology-radix-planets-Mars path{
+    stroke: red;
+  }
+  #chart-astrology-radix-planets-Saturn+text,
+  #chart-astrology-radix-planets-Venus+text,#chart-astrology-radix-planets-Saturn path,
+  #chart-astrology-radix-planets-Venus path{
+    stroke: green;
+  }
+  #chart-astrology-radix-planets-Mercury+text,
+  #chart-astrology-radix-planets-Uranus+text,#chart-astrology-radix-planets-Mercury path,
+  #chart-astrology-radix-planets-Uranus path{
+    stroke: #CCCC00;
+  }
+  #chart-astrology-radix-planets-Neptune+text,#chart-astrology-radix-planets-Moon+text,
+  #chart-astrology-radix-planets-Pluto+text,#chart-astrology-radix-planets-Neptune path,#chart-astrology-radix-planets-Moon path,
+  #chart-astrology-radix-planets-Pluto path{
+    stroke: blue;
+  }
