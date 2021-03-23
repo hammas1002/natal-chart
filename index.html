@@ -309,9 +309,9 @@
 
             <div class="row">
               
-              <div class="col-6">
+              <div>
                 <!-- invisible -->
-                <div class="form-group ">
+                <div class="form-group invisible" style="position:absolute;">
                   <label>Aspect Orbs:</label>
                   <div class="row">
                     <div class="col-6">
@@ -329,10 +329,10 @@
                   </div>
                 </div>
               </div>
-              <div class="col-6">
-                <div class="form-group">
-                  <label class="col-5">Language:</label>
-                  <select class="col-6" id="language-select"></select>
+              <div class="col-12">
+                <div class="form-group ">
+                  <label class="col-5" >Language:</label>
+                  <select class="col-6 " id="language-select"></select>
                 </div>
                 <div class="form-group">
                   <label class="col-5" >Zodiac System:</label>
@@ -343,9 +343,9 @@
                   <select class="col-6" id="houseSystem"></select>
                 </div>
                 
-                <div class="form-group ">
-                  <label class="col-5">Aspect Levels:</label>
-                  <div class="col-6">
+                <div class="form-group row ">
+                  <label class="col-4">Aspect Levels:</label>
+                  <div class="col-8">
                     <label for ="aspect-level-major">
                       Major
                       <input id="aspect-level-major" type="checkbox" checked>
@@ -354,9 +354,10 @@
                       Minor
                       <input id="aspect-level-minor" type="checkbox">
                     </label>
-                  
-                    <button type="submit" class="btn btn-dark">Generate Chart</button>
+                    <button style="margin-left: 5%;" type="submit" class="btn btn-dark">Generate Chart</button>
+                    
                   </div>
+                  
                 </div>
               </div>
             </div>
