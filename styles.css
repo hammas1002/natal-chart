@@ -34,7 +34,7 @@
     background-color: #75cfb8 !important;
     
   }
-  .container{
+  body{
     background-color: #caf7e3;
   }
   .lasttable{
@@ -42,5 +42,6 @@
     font-weight: 700;
   }
   td,th{
-    padding:1% 1px !important;
+    padding:1% 0 !important;
+    border: 1px dotted black;
   }
