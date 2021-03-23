@@ -30,3 +30,17 @@
   #chart-astrology-radix-planets-Pluto path{
     stroke: blue;
   }
+  table{
+    background-color: #75cfb8 !important;
+    
+  }
+  .container{
+    background-color: #caf7e3;
+  }
+  .lasttable{
+    background-color: black !important;
+    font-weight: 700;
+  }
+  td,th{
+    padding:1% 0 !important;
+  }
