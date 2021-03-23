@@ -281,12 +281,10 @@
               </div>
               <div class="form-group col-md-6">
                 <label>City</label>
-                <!-- <input class="form-control" id="city" name="city" type="text" step="any"></input> -->
-                <select class="form-control" onchange="getLocation()" name="city" id="city" required>
-                  <option value=>--Select City--</option>
-          
-                      
-                  </select>
+                <input class="form-control" placeholder="--Select City--" type="text" onchange="getLocation()" list="citylist" id="city" required/>
+                <datalist name="citylist" id="citylist">
+   
+                  </datalist>
               </div>
               <!-- Longitude and Latitude -->
               <div class="form-group col-md-6 ">
@@ -385,7 +383,7 @@
 
           <div class="form-group">
             <h3>Angles: </h3>
-            <table id="angles" class="table table-dark">
+            <table id="angles" class="table table-primary">
               <thead>
                 <tr>
                   <th></th>
@@ -422,7 +420,7 @@
 
           <div class="form-group">
             <h3>Zodiac Cusps:</h3>
-            <table id="zodiacCusps" class="table table-dark">
+            <table id="zodiacCusps" class="table table-info">
               <thead>
                 <tr>
                   <th>
@@ -555,8 +553,8 @@
           <hr />
           <div class="form-group">
             <h3>Houses:</h3>
-            <table id="houses" class="table table-dark">
-              <thead>
+            <table id="houses" class="table bg-success table-striped">
+              <thead class="thead-dark">
                 <tr>
                   <th>
 
@@ -728,8 +726,8 @@
             <hr />
             <div class="form-group">
               <h3>Celestial Bodies:</h3>
-              <table id="bodies" class="table table-dark">
-                <thead>
+              <table id="bodies" class="table bg-info">
+                <thead class="thead-dark">
                   <tr>
                     <th>
 
@@ -983,7 +981,7 @@
             </div>
             <div class="form-group">
               <h3>Celestial Points:</h3>
-              <table id="points" class="table table-dark">
+              <table id="points" class="table bg-light">
                 <thead>
                   <tr>
                     <th>
@@ -1063,8 +1061,8 @@
           <hr />
           <div class="form-group">
             <h3>Aspects:</h3>
-            <table id="aspects" class="table table-dark">
-              <thead>
+            <table id="aspects" class="table table-danger">
+              <thead class="thead-dark">
                 <tr>
                   <td>
                     Point 1
