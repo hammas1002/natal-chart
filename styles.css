@@ -46,7 +46,7 @@
     text-align: center;
   }
   td{
-    border: thin solid #493323 !important;
+    border: thin dotted #493323 !important;
     border-collapse: collapse;
   }
   thead{
