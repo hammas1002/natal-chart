@@ -31,17 +31,25 @@
     stroke: blue;
   }
   table{
-    background-color: #75cfb8 !important;
+    background-color: #eaac7f !important;
     
   }
   body{
-    background-color: #caf7e3;
+    background-color: #ffdf91;
   }
   .lasttable{
-    background-color: black !important;
+    background-color: #493323 !important;
     font-weight: 700;
   }
   td,th{
-    padding:1% 0 !important;
-    border: 1px dotted black;
+    padding:3px 3px !important;
+    text-align: center;
+  }
+  td{
+    border: thin solid #493323 !important;
+    border-collapse: collapse;
+  }
+  thead{
+    background-color: #493323;
+     color: white;
   }
