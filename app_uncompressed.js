@@ -15363,11 +15363,13 @@
                 }
             }
             createSunSign(e, t) {
+                
                 return V.OfType(e, t).find(e => {
                     if (!e.StartDate) return;
                     const t = this.origin.year,
                         a = i()(e.StartDate).add(t, "year"),
                         n = i()(e.EndDate).add(t, "year");
+                        
                     return this.origin.utcTime.isBetween(a, n, null, "[]")
                 })
             }
@@ -15711,7 +15713,14 @@
                         customOrbs: n,
                         language: this.languageSelect.value
                     });
-                console.log(s), this.sunSignElement.innerHTML = s.SunSign.label, document.querySelector("#midheaven-a").innerHTML = `${s.Midheaven.ChartPosition.Horizon.DecimalDegrees}`, document.querySelector("#midheaven-b").innerHTML = `${s.Midheaven.ChartPosition.Ecliptic.DecimalDegrees}`, document.querySelector("#midheaven-c").innerHTML = `${s.Midheaven.Sign.label} ${s.Midheaven.ChartPosition.Ecliptic.ArcDegreesFormatted30}`, document.querySelector("#ascendant-a").innerHTML = `${s.Ascendant.ChartPosition.Horizon.DecimalDegrees}`, document.querySelector("#ascendant-b").innerHTML = `${s.Ascendant.ChartPosition.Ecliptic.DecimalDegrees}`, document.querySelector("#ascendant-c").innerHTML = `${s.Ascendant.Sign.label} ${s.Ascendant.ChartPosition.Ecliptic.ArcDegreesFormatted30}`, s.Houses.forEach((e, t) => {
+
+                console.log(s), this.sunSignElement.innerHTML =(s._zodiac==="tropical" && a.month===0 && a.date<=19)?"Capricorn":(s._zodiac==="sidereal" && a.month===0 && a.date<=15)?"Sagittarius":s.SunSign.label,
+                 document.querySelector("#midheaven-a").innerHTML = `${s.Midheaven.ChartPosition.Horizon.DecimalDegrees}`,
+                  document.querySelector("#midheaven-b").innerHTML = `${s.Midheaven.ChartPosition.Ecliptic.DecimalDegrees}`,
+                   document.querySelector("#midheaven-c").innerHTML = `${s.Midheaven.Sign.label} ${s.Midheaven.ChartPosition.Ecliptic.ArcDegreesFormatted30}`,
+                    document.querySelector("#ascendant-a").innerHTML = `${s.Ascendant.ChartPosition.Horizon.DecimalDegrees}`, document.querySelector("#ascendant-b").innerHTML = `${s.Ascendant.ChartPosition.Ecliptic.DecimalDegrees}`,
+                     document.querySelector("#ascendant-c").innerHTML = `${s.Ascendant.Sign.label} ${s.Ascendant.ChartPosition.Ecliptic.ArcDegreesFormatted30}`,
+                      s.Houses.forEach((e, t) => {
                     document.querySelector(`#house-${t + 1}a`).innerHTML = e.ChartPosition.StartPosition.Horizon.DecimalDegrees, document.querySelector(`#house-${t + 1}b`).innerHTML = e.ChartPosition.StartPosition.Ecliptic.DecimalDegrees, document.querySelector(`#house-${t + 1}-sign`).innerHTML = `${e.Sign.label}`
                 }), s.ZodiacCusps.forEach((e, t) => {
                     document.querySelector(`#zodiac-${t + 1}`).innerHTML = e.ChartPosition.Horizon.DecimalDegrees, document.querySelector(`#zodiac-${t + 1}b`).innerHTML = e.ChartPosition.Ecliptic.DecimalDegrees
