@@ -1,3 +1,5 @@
+
+
 ! function (e, t) {
     "object" == typeof exports && "object" == typeof module ? module.exports = t() : "function" == typeof define && define.amd ? define([], t) : "object" == typeof exports ? exports["index.js"] = t() : e["index.js"] = t()
 }(window, (function () {
@@ -15683,6 +15685,25 @@
             }
             handleSubmit(e) {
                 e && e.preventDefault();
+                //get country
+                var sel = document.querySelector("#country");
+                var country_text= sel.options[sel.selectedIndex].text;
+                //get city
+                sel = document.querySelector("#city");
+                 var city_text= sel.value;
+                //get date of birth
+                sel= document.querySelector("#date");
+                var date_text= sel.value;
+                //get time
+                sel= document.querySelector("#time");
+                var time_text= sel.value;
+                 //save inputs to local storage
+                localStorage.setItem("country",country_text);
+                 localStorage.setItem("city",city_text);
+                 localStorage.setItem("date",date_text);
+                 localStorage.setItem("time",time_text);
+                console.log(localStorage);
+              //  
                 const t = i()(`${this.dateInput.value} ${this.timeInput.value}`),
                     a = new me({
                         year: t.year(),

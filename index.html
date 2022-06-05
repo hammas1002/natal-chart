@@ -284,7 +284,7 @@
               </div>
               <div class="form-group col-md-6">
                 <label>City</label>
-                <input autocomplete="off" class="form-control" placeholder="--Select City--" type="text" onchange="getLocation()" list="citylist" id="city" required/>
+                <input name="city" class="form-control" placeholder="--Select City--" type="text" onchange="getLocation()" list="citylist" id="city" required/>
                 <datalist name="citylist" id="citylist">
    
                   </datalist>
@@ -1096,8 +1096,38 @@
         </div>
       </div>
     </div>
+
+
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="getLocations.js"></script>
     <script type="text/javascript" src="app_uncompressed.js"></script>
+    <!-- To Auto fill the Form ⤵ -->
+    <script type="text/javascript">
+      if(localStorage.getItem("country")){
+        console.log("hello world");
+                //set country
+                var sel = document.querySelector("#country");
+                var country_text= localStorage.getItem("country"); 
+                const options = Array.from(sel.options);
+                const optionToSelect = options.find(item => item.text ===country_text);
+                optionToSelect.selected = true;
+                getCities();
+                //set city
+                sel = document.querySelector("#city");
+                var city_text= localStorage.getItem("city"); 
+                sel.value=city_text;
+                getLocation();
+                
+                //set previous date of birth
+                sel= document.querySelector("#date");
+                sel.value = localStorage.getItem("date");
+                //set previous entered time
+                sel= document.querySelector("#time");
+                sel.value=localStorage.getItem("time");
+      }
+    </script>
+
+
   </body>
 </html>
